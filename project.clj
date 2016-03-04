@@ -8,6 +8,7 @@
                  [compojure "1.4.0"]
                  [ring/ring-defaults "0.1.5"]
                  [environ "1.0.2"]
+                 [org.clojure/tools.logging "0.3.1"]
                  [org.clojure/data.json "0.2.6"]]
   :main ^:skip-aot slack-doi.core
   :target-path "target/%s"

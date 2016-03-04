@@ -8,6 +8,7 @@
             [compojure.route :as route]
             [compojure.handler :as handler]
             [ring.middleware.defaults :refer [api-defaults wrap-defaults]]
+            [clojure.tools.logging :as log]
             [environ.core :refer [env]]))
 
 ;; Look up a DOI
@@ -56,10 +57,12 @@
 ;; Routing
 
 (defroutes app
-  (GET "/slack" [text]
-       {:status 200
-        :headers {"Content-Type" "application/json"}
-        :body (-> text str/trim get-doi-info json/write-str)})
+  (GET "/slack" [text user_name]
+       (do
+         (log/info user_name "asked for" text)
+         {:status 200
+          :headers {"Content-Type" "application/json"}
+          :body (-> text str/trim get-doi-info json/write-str)}))
   (route/not-found "No such route"))
 
 ;; Server gubbins
