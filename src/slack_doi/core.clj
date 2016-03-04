@@ -39,7 +39,11 @@
           {:text (str doi
                       "\nCrossref DOI"
                       "\n" (-> parsed-metadata :title first)
-                      "\nMetadata Link: <http://api.crossref.org/v1/works/" doi ">")})
+                      "\n" (-> parsed-metadata :type)
+                      (when (-> parsed-metadata :container-title empty? not)
+                        (str " in " (-> parsed-metadata :container-title first)))
+                      "\nMetadata Link: <http://api.crossref.org/v1/works/"
+                      doi ">")})
         (registered? context)
         {:text (str doi
                     "\nRegistered by " (-> context agency :label))}
