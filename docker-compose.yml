@@ -1,0 +1,7 @@
+web:
+  build: .
+  command: lein run
+  environment:
+    - SERVER_PORT=3000
+  ports:
+    - 80:3000
